@@ -48,8 +48,11 @@ for i in range(n):
 
             G.add_edge(i,v )
 
-    saida += str(lista_de_vertices) + " (" + str(i) + ")"+ "\n" 
-    
+    #saida += str(lista_de_vertices) + " (" + str(i) + ")"+ "\n" 
+    saida += str(lista_de_vertices) + "\n" 
+
+saida = saida.replace("[","")   
+saida = saida.replace("]","")  
 print(saida)
 
 pos = nx.kamada_kawai_layout(G)
@@ -60,8 +63,9 @@ label = nx.draw_networkx_labels(G, pos, font_size=8, font_family="Arial", font_c
 edges = nx.draw_networkx_edges(G, pos, width=1)#desenhando arestas
 ax = plt.gca()
 ax.set_axis_off()
-titulo ="Teste"
-plt.title(titulo)
-plt.savefig("Graph.png", format="PNG") #salvando grafo
+plt.savefig("Grafo.png", format="PNG") #salvando grafo
 plt.show() #exibindo o grafo graficamente
 
+arq = open('grafo.txt', 'w')
+arq.write(saida)
+arq.close()
