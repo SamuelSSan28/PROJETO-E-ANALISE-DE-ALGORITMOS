@@ -52,7 +52,8 @@ for i in range(n):
     saida += str(lista_de_vertices) + "\n" 
 
 saida = saida.replace("[","")   
-saida = saida.replace("]","")  
+saida = saida.replace("]","") 
+saida = str(n) + "\n" + saida
 print(saida)
 
 pos = nx.kamada_kawai_layout(G)
