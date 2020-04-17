@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import sys
 
+
 def find_ccdm(G):
     '''
     Encontra o CONJUNTO CONECTADO DOMINANTE MÍNIMO
@@ -11,8 +12,6 @@ def find_ccdm(G):
         lista  = list(G[i])
         lista.append(i)
         adjacencia.update({i: lista})
-    
-    print(adjacencia)
 
     transmissores = {}
     
@@ -28,23 +27,22 @@ def find_ccdm(G):
             print("Novo",i,adjacencia[i])
             transmissores.update({i:adjacencia[i]})
            
-        
+    print(transmissores)
 
-    print(len(Conjunto_Visitado(transmissores,adjacencia)))
+    return transmissores
 
+
+
+
+   
 def Conjunto_Visitado(transmissores,grafo):
     conjunto = []
     for i in transmissores:
         for j in grafo[i]:
             if j not in conjunto:    conjunto.append(j)
             
-    print("Conjuto:",conjunto)
     return conjunto
                 
-     
-
-    
-
 
 n= param  = sys.argv[1] #recebe número de vertices
 n = int(n)
@@ -67,8 +65,27 @@ for i in range(n):
         if(matriz_adjacencia[i][v] == 1):
             G.add_edge(i,v)
 
-find_ccdm(G)
+transmissores =find_ccdm(G)
 
+pos = nx.kamada_kawai_layout(G)
+cores = ["blue"] * (n)
+
+for i in transmissores:
+    cores[i] = 'red'
+
+
+
+
+nodes = nx.draw_networkx_nodes(G, pos, node_size=130, node_color=cores, ) #desenhando nodes
+label = nx.draw_networkx_labels(G, pos, font_size=8, font_family="Arial", font_color='white')#desenhando nomes/labes nos nodes
+edges = nx.draw_networkx_edges(G, pos, width=1)#desenhando arestas
+ax = plt.gca()
+ax.plot([0],[0],color="blue",label="Não vão retransmitir")
+ax.plot([0],[0],color="red",label="Retransmissores")
+ax.set_axis_off()
+plt.legend()
+plt.savefig("GrafoConjuntDominante.png", format="PNG") #salvando grafo
+plt.show()
 
  
 
