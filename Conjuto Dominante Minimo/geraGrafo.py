@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 n= param  = sys.argv[1] #recebe número de vertices
 n = int(n)
 saida = ''
-valores = [1]*50 + [0]*50
+valores = [1]*int(30/n) + [0]*int(70/n)
 G = nx.Graph()
 
 for i in range(n):
@@ -45,15 +45,14 @@ for i in range(n):
     for v in range(len(lista_de_vertices)):
         if i == v: pass
         if(lista_de_vertices[v] == 1):
-
             G.add_edge(i,v )
 
     #saida += str(lista_de_vertices) + " (" + str(i) + ")"+ "\n" 
+    
     saida += str(lista_de_vertices) + "\n" 
 
 saida = saida.replace("[","")   
 saida = saida.replace("]","") 
-saida = str(n) + "\n" + saida
 print(saida)
 
 pos = nx.kamada_kawai_layout(G)
@@ -67,6 +66,6 @@ ax.set_axis_off()
 plt.savefig("Grafo.png", format="PNG") #salvando grafo
 plt.show() #exibindo o grafo graficamente
 
-arq = open('grafo.txt', 'w')
+arq = open('grafo'+str(n) +'.txt', 'w')
 arq.write(saida)
 arq.close()
