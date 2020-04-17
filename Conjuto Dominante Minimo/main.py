@@ -18,8 +18,9 @@ def find_ccdm(G):
     for i in adjacencia: 
        # print("Transmissores:",transmissores)
 
-        for j in transmissores:
-            if len(adjacencia[i]) > len(adjacencia[j]) and set(adjacencia[j]).intersection(adjacencia[i]) == set(adjacencia[j]):
+        for j in transmissores: 
+            #Aqui tem erro
+                if len(adjacencia[i]) > len(adjacencia[j]) and set(adjacencia[j]).intersection(adjacencia[i]) == set(adjacencia[j]):
                 print("Troca:", len(adjacencia[j]),len(adjacencia[i]))
                 j = i
                 
