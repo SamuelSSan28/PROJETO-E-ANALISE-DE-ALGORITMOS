@@ -89,7 +89,7 @@ blue =  mpatches.Patch(color='blue', label='Não vão retransmitir')
 
 plt.legend(handles=[red,blue])
 
-plt.savefig("GrafoConjuntDominante.png", format="PNG") #salvando grafo
+plt.savefig("Grafo_Conjunto_Dominante.png", format="PNG") #salvando grafo
 plt.show()
 
  

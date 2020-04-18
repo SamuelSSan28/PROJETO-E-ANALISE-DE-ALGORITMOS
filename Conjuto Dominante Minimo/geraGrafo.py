@@ -63,7 +63,7 @@ label = nx.draw_networkx_labels(G, pos, font_size=8, font_family="Arial", font_c
 edges = nx.draw_networkx_edges(G, pos, width=1)#desenhando arestas
 ax = plt.gca()
 ax.set_axis_off()
-plt.savefig("Grafo.png", format="PNG") #salvando grafo
+plt.savefig("Grafo"+str(n) +".png", format="PNG") #salvando grafo
 plt.show() #exibindo o grafo graficamente
 
 arq = open('grafo'+str(n) +'.txt', 'w')
