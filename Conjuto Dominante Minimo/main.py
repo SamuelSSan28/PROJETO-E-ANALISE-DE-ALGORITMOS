@@ -17,18 +17,21 @@ def find_ccdm(G):
     
     for i in adjacencia: 
        # print("Transmissores:",transmissores)
-
         for j in transmissores: 
-            #Aqui tem erro
+                #Se esse vertice tiver mais conexões e se o já adicionado na lista está contido nele((ou seja, tem todas suas conexoes)
                 if len(adjacencia[i]) > len(adjacencia[j]) and set(adjacencia[j]).intersection(adjacencia[i]) == set(adjacencia[j]):
-                print("Troca:", len(adjacencia[j]),len(adjacencia[i]))
-                j = i
-                
+                    #Se sim, remove o antigo e insere o atual
+                    #print("Troca:",i,j)
+                    transmissores.pop(j)
+                    transmissores.update({i:adjacencia[i]})
+        
+        #se esse tem algum vertice que não pode ser visitado pelos transmissores
         if set(adjacencia[i]).difference(Conjunto_Visitado(transmissores,adjacencia) ):
-            print("Novo",i,adjacencia[i])
+            #ele é adicionado na lista de transmissores
+            print("ADD",i)
             transmissores.update({i:adjacencia[i]})
            
-    print(transmissores)
+    print(transmissores,len(Conjunto_Visitado(transmissores,adjacencia)))
 
     return transmissores
 
@@ -74,17 +77,18 @@ cores = ["blue"] * (n)
 for i in transmissores:
     cores[i] = 'red'
 
-
-
-
 nodes = nx.draw_networkx_nodes(G, pos, node_size=130, node_color=cores, ) #desenhando nodes
 label = nx.draw_networkx_labels(G, pos, font_size=8, font_family="Arial", font_color='white')#desenhando nomes/labes nos nodes
 edges = nx.draw_networkx_edges(G, pos, width=1)#desenhando arestas
 ax = plt.gca()
-ax.plot([0],[0],color="blue",label="Não vão retransmitir")
-ax.plot([0],[0],color="red",label="Retransmissores")
-ax.set_axis_off()
-plt.legend()
+#ax.plot([0],[0],color="blue",label="Não vão retransmitir")
+#ax.plot([0],[0],color="red",label="Retransmissores")
+import matplotlib.patches as mpatches
+red = mpatches.Patch(color='red', label='Retransmissores')
+blue =  mpatches.Patch(color='blue', label='Não vão retransmitir')
+
+plt.legend(handles=[red,blue])
+
 plt.savefig("GrafoConjuntDominante.png", format="PNG") #salvando grafo
 plt.show()
 
