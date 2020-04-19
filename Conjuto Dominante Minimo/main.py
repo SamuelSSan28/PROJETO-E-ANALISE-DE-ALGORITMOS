@@ -17,7 +17,7 @@ def find_ccdm(G):
     
     for i in adjacencia: 
        # print("Transmissores:",transmissores)
-        for j in transmissores: 
+        for j in list(transmissores.keys()): 
                 #Se esse vertice tiver mais conexões e se o já adicionado na lista está contido nele((ou seja, tem todas suas conexoes)
                 if len(adjacencia[i]) > len(adjacencia[j]) and set(adjacencia[j]).intersection(adjacencia[i]) == set(adjacencia[j]):
                     #Se sim, remove o antigo e insere o atual
