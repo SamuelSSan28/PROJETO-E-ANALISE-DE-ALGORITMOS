@@ -28,10 +28,10 @@ def find_ccdm(G):
         #se esse tem algum vertice que não pode ser visitado pelos transmissores
         if set(adjacencia[i]).difference(Conjunto_Visitado(transmissores,adjacencia) ):
             #ele é adicionado na lista de transmissores
-            print("ADD",i)
             transmissores.update({i:adjacencia[i]})
            
-    print(transmissores,len(Conjunto_Visitado(transmissores,adjacencia)))
+    for i in transmissores:
+        print(i,end=", ")
 
     return transmissores
 
@@ -56,7 +56,7 @@ G = nx.Graph()
 converte_int = lambda a : int(a)
 
 for i in arq: 
-    vertices_string = i.split(",")
+    vertices_string = i.split(" ")
     vertices_int = list(map(converte_int,vertices_string))
     matriz_adjacencia.append(vertices_int)
 

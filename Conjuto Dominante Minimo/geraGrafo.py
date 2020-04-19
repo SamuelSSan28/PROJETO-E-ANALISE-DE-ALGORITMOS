@@ -22,7 +22,16 @@ import matplotlib.pyplot as plt
 n= param  = sys.argv[1] #recebe número de vertices
 n = int(n)
 saida = ''
-valores = [1]*int(30/n) + [0]*int(70/n)
+
+if n < 21:
+    valores = [1]*(int(49/n)) + [0]*(int(51/n))
+else:
+    valores = [1]*(int(49*(n/10))) + [0]*(int(51*(n/10)))
+
+print((int(49/n)) , (int(51/n)),(int(49/n)) + (int(51/n)))
+print((int(49*(n/10))) , (int(51*(n/10))),(int(49*(n/10))) + (int(51*(n/10))))
+
+
 G = nx.Graph()
 
 for i in range(n):
@@ -53,7 +62,8 @@ for i in range(n):
 
 saida = saida.replace("[","")   
 saida = saida.replace("]","") 
-print(saida)
+saida = saida.replace(",","") 
+
 
 pos = nx.kamada_kawai_layout(G)
 cores = ["blue"] * (n)
