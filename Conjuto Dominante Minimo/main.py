@@ -1,7 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import sys
-
+import time
 
 def find_ccdm(G):
     '''
@@ -16,7 +16,6 @@ def find_ccdm(G):
     transmissores = {}
     
     for i in adjacencia: 
-       # print("Transmissores:",transmissores)
         for j in list(transmissores.keys()): 
                 #Se esse vertice tiver mais conexões e se o já adicionado na lista está contido nele((ou seja, tem todas suas conexoes)
                 if len(adjacencia[i]) > len(adjacencia[j]) and set(adjacencia[j]).intersection(adjacencia[i]) == set(adjacencia[j]):
@@ -34,8 +33,6 @@ def find_ccdm(G):
         print(i,end=", ")
 
     return transmissores
-
-
 
 
    
@@ -69,26 +66,26 @@ for i in range(n):
         if(matriz_adjacencia[i][v] == 1):
             G.add_edge(i,v)
 
+start_time = time.time()
 transmissores =find_ccdm(G)
-
+print("--- %s seconds ---" % (time.time() - start_time))
 pos = nx.kamada_kawai_layout(G)
 cores = ["blue"] * (n)
 
 for i in transmissores:
     cores[i] = 'red'
 
-nodes = nx.draw_networkx_nodes(G, pos, node_size=130, node_color=cores, ) #desenhando nodes
-label = nx.draw_networkx_labels(G, pos, font_size=8, font_family="Arial", font_color='white')#desenhando nomes/labes nos nodes
+
+
+nodes = nx.draw_networkx_nodes(G, pos, node_size=130, node_color=cores ) #desenhando nodes
+label = nx.draw_networkx_labels(G, pos, font_size=8, font_color='white')#desenhando nomes/labes nos nodes
 edges = nx.draw_networkx_edges(G, pos, width=1)#desenhando arestas
 ax = plt.gca()
-#ax.plot([0],[0],color="blue",label="Não vão retransmitir")
-#ax.plot([0],[0],color="red",label="Retransmissores")
+
 import matplotlib.patches as mpatches
 red = mpatches.Patch(color='red', label='Retransmissores')
 blue =  mpatches.Patch(color='blue', label='Não vão retransmitir')
-
 plt.legend(handles=[red,blue])
-
 plt.savefig("Grafo"+str(n) +"_Conjunto_Dominante.png", format="PNG") #salvando grafo
 plt.show()
 
